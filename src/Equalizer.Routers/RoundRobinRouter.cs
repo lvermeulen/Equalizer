@@ -4,20 +4,19 @@ using Equalizer.Core;
 
 namespace Equalizer.Routers
 {
-    public class RoundRobinRouter<T> : IRouter<T>
+    public class RoundRobinRouter<T> : BaseTenaciousRouter<T>
+        where T : class
     {
-        private T _previous;
-
-        public T Choose(IList<T> instances)
+        public override T Choose(T previous, IList<T> instances)
         {
-            var previousIndex = instances.IndexOf(_previous);
+            var previousIndex = instances.IndexOf(Previous);
             if (previousIndex == instances.Count - 1)
             {
                 previousIndex = -1;
             }
 
             var next = instances[previousIndex + 1];
-            _previous = next;
+            Previous = next;
 
             return next;
         }

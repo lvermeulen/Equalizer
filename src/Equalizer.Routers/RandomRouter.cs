@@ -6,6 +6,7 @@ using Equalizer.Core;
 namespace Equalizer.Routers
 {
     public class RandomRouter<T> : IRouter<T>
+        where T : class
     {
         public T Choose(IList<T> instances)
         {
