@@ -7,8 +7,8 @@
 
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>83f62be0-0d54-4969-acb6-1b1943098f45</ProjectGuid>
-    <RootNamespace>Equalizer</RootNamespace>
+    <ProjectGuid>f62983c3-bf11-42c1-b4db-a5496bd257df</ProjectGuid>
+    <RootNamespace>Equalizer.Nanophone</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
