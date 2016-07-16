@@ -14,14 +14,17 @@ namespace Equalizer.Nanophone
         {
             _router = new RoundRobinRouter<RegistryInformation>();
 
-            Discriminator = (x, y) => x.Address == y.Address;
+            Discriminator = (x, y) => x?.Address == y?.Address;
         }
 
         public override Func<RegistryInformation, RegistryInformation, bool> Discriminator { get; }
 
         public override RegistryInformation Choose(RegistryInformation previous, IList<RegistryInformation> instances)
         {
-            return _router.Choose(instances);
+            var next = _router.Choose(instances);
+            Previous = next;
+
+            return next;
         }
     }
 }
