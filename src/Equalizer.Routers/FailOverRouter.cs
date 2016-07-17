@@ -9,13 +9,13 @@ namespace Equalizer.Routers
         where T : class
     {
         private readonly T _preferredInstance;
-        private readonly Predicate<T> _isHealthy;
+        private readonly Predicate<T> _isAvailable;
         private readonly IRouter<T> _fallBackRouter;
 
-        public FailOverRouter(T preferredInstance, Predicate<T> isHealthy, Func<IRouter<T>> fallBackRouterFactory = null)
+        public FailOverRouter(T preferredInstance, Predicate<T> isAvailable, Func<IRouter<T>> fallBackRouterFactory = null)
         {
             _preferredInstance = preferredInstance;
-            _isHealthy = isHealthy;
+            _isAvailable = isAvailable;
 
             var routerFactory = fallBackRouterFactory ?? (() => new RandomRouter<T>());
             _fallBackRouter = routerFactory();
@@ -27,7 +27,7 @@ namespace Equalizer.Routers
                 .Except(Enumerable.Repeat(_preferredInstance, 1))
                 .ToList();
 
-            return _isHealthy(_preferredInstance) ? _preferredInstance : _fallBackRouter.Choose(exceptPreferred);
+            return _isAvailable(_preferredInstance) ? _preferredInstance : _fallBackRouter.Choose(exceptPreferred);
         }
     }
 }
