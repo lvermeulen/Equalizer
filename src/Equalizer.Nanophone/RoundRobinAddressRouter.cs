@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Equalizer.Core;
-using Equalizer.Routers;
 using Nanophone.Core;
 
 namespace Equalizer.Nanophone
 {
-    public class RoundRobinAddressRouter : BaseDiscriminatingRouter<RegistryInformation>
+    public class RoundRobinAddressRouter : BaseTenaciousRouter<RegistryInformation>
     {
-        private readonly RoundRobinRouter<RegistryInformation> _router;
+        private readonly Func<RegistryInformation, RegistryInformation, bool> _discriminator;
 
         public RoundRobinAddressRouter()
         {
-            _router = new RoundRobinRouter<RegistryInformation>();
-
-            Discriminator = (x, y) => x?.Address == y?.Address;
+            _discriminator = (x, y) => x?.Address == y?.Address;
         }
-
-        public override Func<RegistryInformation, RegistryInformation, bool> Discriminator { get; }
 
         public override RegistryInformation Choose(RegistryInformation previous, IList<RegistryInformation> instances)
         {
-            var next = _router.Choose(instances);
+            int previousIndex = instances.IndexOf(previous);
+
+            var next = instances
+                .Skip(previousIndex < 0 ? 0 : previousIndex + 1)
+                .FirstOrDefault(x => _discriminator(x, previous) == false) ?? instances.FirstOrDefault();
             Previous = next;
 
             return next;
