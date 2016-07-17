@@ -16,7 +16,12 @@ namespace Equalizer.Nanophone.Tests
             var twoDotTwo = new RegistryInformation("2", 1234, "some version");
             var threeDotOne = new RegistryInformation("3", 1234, "some version");
             var threeDotTwo = new RegistryInformation("3", 1234, "some version");
-            var instances = new List<RegistryInformation> { oneDotOne, oneDotTwo, twoDotOne, twoDotTwo, threeDotOne, threeDotTwo };
+            var instances = new List<RegistryInformation>
+            {
+                oneDotOne, oneDotTwo,
+                twoDotOne, twoDotTwo,
+                threeDotOne, threeDotTwo
+            };
 
             var router = new RoundRobinAddressRouter();
 
