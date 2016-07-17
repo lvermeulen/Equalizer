@@ -14,7 +14,7 @@ namespace Equalizer.Routers.Tests
             var third = "3";
             var instances = new List<string> { first, second, third };
 
-            var router = new FailOverRouter<string>(first, isAvailable: x => false);
+            var router = new FailOverRouter<string>(first, x => false);
 
             // don't choose first
             var next = router.Choose(instances);
@@ -30,7 +30,7 @@ namespace Equalizer.Routers.Tests
             var third = "3";
             var instances = new List<string> { first, second, third };
 
-            var router = new FailOverRouter<string>(first, isAvailable: x => true);
+            var router = new FailOverRouter<string>(first, x => true);
 
             // choose first
             var next = router.Choose(instances);
