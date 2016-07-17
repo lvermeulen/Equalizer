@@ -1,5 +1,27 @@
 ﻿{
-  "version": "1.0.0-*",
+  "title": "Equalizer.Core",
+  "version": "1.0.0",
+  "authors": [ "Luk Vermeulen" ],
+  "copyright": "Copyright 2016",
+  "description": "Choosing the next item from a list of items",
+
+  "buildOptions": {
+    "optimize": true
+  },
+
+  "packOptions": {
+    "owners": [ "Luk Vermeulen" ],
+    "requireLicenseAcceptance": true,
+    "summary": "",
+    "tags": [ "Equalizer", "routing", "router", "load balancing", "load balancer", "Nanophone" ],
+    "projectUrl": "https://github.com/lvermeulen/Equalizer",
+    "licenseUrl": "https://github.com/lvermeulen/Equalizer/blob/master/LICENSE",
+    "iconUrl": "http://i.imgur.com/llEKpRL.png?1",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/lvermeulen/Equalizer"
+    }
+  },
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
