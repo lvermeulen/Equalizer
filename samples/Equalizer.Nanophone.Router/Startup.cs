@@ -12,21 +12,7 @@ namespace Equalizer.Nanophone.Router
 {
     public class Startup
     {
-        private RegistryClient _registryClient;
-
         public IConfiguration Configuration { get; }
-
-        private RegistryClient BuildRegistryClient()
-        {
-            var consulConfig = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = true };
-            var consul = new ConsulRegistryHost(consulConfig);
-
-            // XXX investigate config binding from Nancy sample
-            var result = new RegistryClient("urlprefix-", new RoundRobinAddressRouter());
-            result.AddRegistryHost(consul);
-
-            return result;
-        }
 
         public Startup(IHostingEnvironment env)
         {
@@ -35,15 +21,28 @@ namespace Equalizer.Nanophone.Router
                 .SetBasePath(env.ContentRootPath);
 
             Configuration = builder.Build();
+        }
 
-            _registryClient = BuildRegistryClient();
+        private RegistryClient BuildRegistryClient(string prefixName)
+        {
+            var consulConfig = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = true };
+            var consul = new ConsulRegistryHost(consulConfig);
+
+            var result = new RegistryClient(prefixName, new RoundRobinAddressRouter());
+            result.AddRegistryHost(consul);
+
+            return result;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddNLog();
 
-            app.UseEqualizer(new EqualizerOptions { RegistryClient = _registryClient });
+            var routerConfig = new RouterConfiguration();
+            Configuration.Bind(routerConfig);
+
+            var registryClient = BuildRegistryClient(routerConfig.Router.Prefix);
+            app.UseEqualizer(new EqualizerOptions { RegistryClient = registryClient });
         }
     }
 }
