@@ -5,7 +5,8 @@
   "dependencies": {
     "xunit": "2.1.0",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
-    "Equalizer.Nanophone": { "target": "project" }
+    "Equalizer.Nanophone": { "target": "project" },
+    "Nanophone.RegistryHost.ConsulRegistry": "1.2.2-alpha"
   },
 
   "frameworks": {
