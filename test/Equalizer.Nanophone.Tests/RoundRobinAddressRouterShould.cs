@@ -10,12 +10,12 @@ namespace Equalizer.Nanophone.Tests
         [Fact]
         public void WrapAround()
         {
-            var oneDotOne = new RegistryInformation("1", 1234, "some version");
-            var oneDotTwo = new RegistryInformation("1", 1234, "some version");
-            var twoDotOne = new RegistryInformation("2", 1234, "some version");
-            var twoDotTwo = new RegistryInformation("2", 1234, "some version");
-            var threeDotOne = new RegistryInformation("3", 1234, "some version");
-            var threeDotTwo = new RegistryInformation("3", 1234, "some version");
+            var oneDotOne = new RegistryInformation("One", "1", 1234, "some version");
+            var oneDotTwo = new RegistryInformation("One", "1", 1234, "some version");
+            var twoDotOne = new RegistryInformation("Two", "2", 1234, "some version");
+            var twoDotTwo = new RegistryInformation("Two", "2", 1234, "some version");
+            var threeDotOne = new RegistryInformation("Three", "3", 1234, "some version");
+            var threeDotTwo = new RegistryInformation("Three", "3", 1234, "some version");
             var instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,
