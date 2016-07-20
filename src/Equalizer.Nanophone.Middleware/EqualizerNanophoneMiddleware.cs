@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Options;
-using Nanophone.Core;
+using Microsoft.Extensions.Primitives;
 
 namespace Equalizer.Nanophone.Middleware
 {
@@ -65,47 +64,11 @@ namespace Equalizer.Nanophone.Middleware
             // choose instance
             var instance = _options.RegistryClient.Choose(instancesForUri);
 
-            // construct new request/response
-            var requestMessage = new HttpRequestMessage();
-
-            // copy request headers
-            foreach (var header in context.Request.Headers)
-            {
-                if (!requestMessage.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray()))
-                {
-                    requestMessage.Content?.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray());
-                }
-            }
-
-            // set host header
-            requestMessage.Headers.Host = $"{instance.Address}:{instance.Port}";
-
-            // construct new uri
+            // set 303 See Other status code with Location header - don't invoke next handler
             var uriBuilder = new UriBuilder(requestUri) { Host = instance.Address, Port = instance.Port };
             var newUri = uriBuilder.Uri;
-            requestMessage.RequestUri = newUri;
-            requestMessage.Method = new HttpMethod(context.Request.Method);
-
-            // send new request
-            using (var responseMessage = await _httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted))
-            {
-                context.Response.StatusCode = (int)responseMessage.StatusCode;
-                foreach (var header in responseMessage.Headers)
-                {
-                    context.Response.Headers[header.Key] = header.Value.ToArray();
-                }
-
-                foreach (var header in responseMessage.Content.Headers)
-                {
-                    context.Response.Headers[header.Key] = header.Value.ToArray();
-                }
-
-                // using SendAsync would remove chunking from response
-                // 1. remove transfer-encoding header
-                // 2. use CopyToAsync
-                context.Response.Headers.Remove("transfer-encoding");
-                await responseMessage.Content.CopyToAsync(context.Response.Body);
-            }
+            context.Response.Headers.Add("Location", new StringValues(newUri.ToString()));
+            context.Response.StatusCode = (int)StatusCodes.Status303SeeOther;
         }
     }
 }
