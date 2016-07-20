@@ -7,13 +7,20 @@
     "Microsoft.Extensions.Options": "1.0.0",
     "NETStandard.Library": "1.6.0",
     "Equalizer.Nanophone": { "target": "project" },
-    "Microsoft.AspNetCore.Http.Extensions": "1.0.0",
-    "System.Linq": "4.1.0"
+    "Microsoft.AspNetCore.Http.Extensions": "1.0.0"
   },
 
   "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Linq": "4.0.0.0"
+      }
+    },
     "netstandard1.6": {
-      "imports": "dnxcore50"
+      "imports": "dnxcore50",
+      "dependencies": {
+        "System.Linq": "4.1.0"
+      }
     }
   }
 }
