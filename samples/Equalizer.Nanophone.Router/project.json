@@ -16,10 +16,10 @@
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Equalizer.Nanophone": { "target": "project" },
-    "Equalizer.Nanophone.Middleware": {"target": "project" },
-    "Nanophone.RegistryHost.ConsulRegistry": "1.2.2-alpha",
-    "NLog.Extensions.Logging": "1.0.0-rtm-alpha2",
-    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0"
+    "Equalizer.Nanophone.Middleware": { "target": "project" },
+    "Nanophone.RegistryHost.ConsulRegistry": "1.3.1-alpha",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
   },
 
   "tools": {
