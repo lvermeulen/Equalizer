@@ -23,9 +23,9 @@ namespace Equalizer.Nanophone.Router
             Configuration = builder.Build();
         }
 
-        private RegistryClient BuildRegistryClient(string prefixName)
+        private RegistryClient BuildRegistryClient(string prefixName, bool ignoreCriticalServices)
         {
-            var consulConfig = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = true };
+            var consulConfig = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = ignoreCriticalServices };
             var consul = new ConsulRegistryHost(consulConfig);
 
             var result = new RegistryClient(prefixName, new RoundRobinAddressRouter());
@@ -38,10 +38,10 @@ namespace Equalizer.Nanophone.Router
         {
             loggerFactory.AddNLog();
 
-            var routerConfig = new RouterConfiguration();
+            var routerConfig = new NanophoneRouterConfiguration();
             Configuration.Bind(routerConfig);
 
-            var registryClient = BuildRegistryClient(routerConfig.Router.Prefix);
+            var registryClient = BuildRegistryClient(routerConfig.Router.Prefix, routerConfig.Consul.IgnoreCriticalServices);
             app.UseEqualizer(new EqualizerOptions { RegistryClient = registryClient });
         }
     }
