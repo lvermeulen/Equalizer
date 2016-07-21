@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Equalizer.LoadBalancer
+﻿namespace Equalizer.LoadBalancer
 {
     public class LoadBalancerConfiguration
     {

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Equalizer.LoadBalancer
 {
@@ -7,11 +8,14 @@ namespace Equalizer.LoadBalancer
     {
         public static void Main(string[] args)
         {
-            const int PORT = 5050;
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .Build();
 
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls($"http://*:{PORT}")
+                .UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
                 .Build();
