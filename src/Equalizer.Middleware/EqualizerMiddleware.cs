@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Equalizer.Middleware.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Options;
@@ -11,6 +11,8 @@ namespace Equalizer.Middleware
 {
     public class EqualizerMiddleware
     {
+        private static readonly ILog s_log = LogProvider.For<EqualizerMiddleware>();
+
         private readonly RequestDelegate _next;
         private readonly EqualizerMiddlewareOptions _middlewareOptions;
 
@@ -33,10 +35,14 @@ namespace Equalizer.Middleware
             {
                 throw new ArgumentNullException(nameof(_middlewareOptions.RegistryClient), "RegistryClient option is required");
             }
+
+            s_log.Info("Equalizer middleware initialized");
         }
 
         public async Task Invoke(HttpContext context)
         {
+            var requestUri = new Uri(context.Request.GetEncodedUrl());
+
             // check if request is handled
             bool isGet = string.Equals(context.Request.Method, "GET", StringComparison.OrdinalIgnoreCase);
             bool isHead = string.Equals(context.Request.Method, "HEAD", StringComparison.OrdinalIgnoreCase);
@@ -45,15 +51,16 @@ namespace Equalizer.Middleware
             bool isHandledMethod = isGet || isHead || isDelete || isTrace;
             if (!isHandledMethod)
             {
+                s_log.Info($"Equalizer middleware skipping request {requestUri} - request method {context.Request.Method} is not handled");
                 await _next.Invoke(context);
                 return;
             }
 
             // get instances matching request uri
-            var requestUri = new Uri(context.Request.GetEncodedUrl());
             var instancesForUri = await _middlewareOptions.RegistryClient.FindServiceInstancesAsync(requestUri);
             if (!instancesForUri.Any())
             {
+                s_log.Info($"Equalizer middleware skipping request: {requestUri} - no alternative service instances found");
                 await _next.Invoke(context);
                 return;
             }
@@ -66,6 +73,8 @@ namespace Equalizer.Middleware
             var newUri = uriBuilder.Uri;
             context.Response.Headers.Add("Location", new StringValues(newUri.ToString()));
             context.Response.StatusCode = StatusCodes.Status303SeeOther;
+
+            s_log.Info($"Equalizer middleware forwarding request: {requestUri} to {newUri}");
         }
     }
 }

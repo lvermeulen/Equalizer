@@ -6,6 +6,7 @@
   "description": "Equalizer middleware",
 
   "buildOptions": {
+    "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true
   },
 
