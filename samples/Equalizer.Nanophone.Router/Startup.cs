@@ -1,8 +1,6 @@
-﻿using System;
-using Equalizer.Nanophone.Middleware;
+﻿using Equalizer.Nanophone.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Nanophone.RegistryHost.ConsulRegistry;

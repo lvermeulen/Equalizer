@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Equalizer.Nanophone.Middleware;
 using Nanophone.Core;
 using Nanophone.RegistryHost.InMemoryRegistry;
 using Xunit;
@@ -55,11 +53,11 @@ namespace Equalizer.Nanophone.Middleware.Tests
             return result;
         }
 
-        private TestServer BuildTestServer(HttpMessageHandler messageHandler)
+        private TestServer BuildTestServer()
         {
             var builder = new WebHostBuilder().Configure(app =>
             {
-                app.UseEqualizer(new EqualizerOptions { RegistryClient = BuildRegistryClient(), BackChannelMessageHandler = messageHandler });
+                app.UseEqualizer(new EqualizerOptions { RegistryClient = BuildRegistryClient() });
             });
 
             return new TestServer(builder);
@@ -68,7 +66,7 @@ namespace Equalizer.Nanophone.Middleware.Tests
         [Fact]
         public async Task ForwardToServiceInstances()
         {
-            var server = BuildTestServer(null);
+            var server = BuildTestServer();
             var requestMessage = new HttpRequestMessage(new HttpMethod("GET"), "http://host:6789/orders/1");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
 
@@ -84,7 +82,7 @@ namespace Equalizer.Nanophone.Middleware.Tests
         [InlineData("PATCH", "4013")]
         public async Task PassThroughIgnoredHttpMethods(string methodType, string port)
         {
-            var server = BuildTestServer(null);
+            var server = BuildTestServer();
             var requestMessage = new HttpRequestMessage(new HttpMethod(methodType), "");
             requestMessage.Headers.Add("testHeader", "testHeaderValue");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
@@ -98,7 +96,7 @@ namespace Equalizer.Nanophone.Middleware.Tests
         [Fact]
         public async Task PassThroughUnhandledAddress()
         {
-            var server = BuildTestServer(null);
+            var server = BuildTestServer();
             var requestMessage = new HttpRequestMessage(new HttpMethod("GET"), "http://host:6789/some_unknown_path/1");
             requestMessage.Headers.Add("testHeader", "testHeaderValue");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
@@ -107,21 +105,6 @@ namespace Equalizer.Nanophone.Middleware.Tests
             IEnumerable<string> testHeaderValue;
             responseMessage.RequestMessage.Headers.TryGetValues("testHeader", out testHeaderValue);
             Assert.Equal("testHeaderValue", testHeaderValue.Single());
-        }
-
-        private class TestMessageHandler : HttpMessageHandler
-        {
-            public Func<HttpRequestMessage, HttpResponseMessage> Sender { get; set; }
-
-            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            {
-                if (Sender != null)
-                {
-                    return Task.FromResult(Sender(request));
-                }
-
-                return Task.FromResult<HttpResponseMessage>(null);
-            }
         }
     }
 }

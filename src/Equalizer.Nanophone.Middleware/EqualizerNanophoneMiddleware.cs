@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -12,7 +11,6 @@ namespace Equalizer.Nanophone.Middleware
     public class EqualizerNanophoneMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly HttpClient _httpClient;
         private readonly EqualizerOptions _options;
 
         public EqualizerNanophoneMiddleware(RequestDelegate next, IOptions<EqualizerOptions> options)
@@ -34,8 +32,6 @@ namespace Equalizer.Nanophone.Middleware
             {
                 throw new ArgumentNullException(nameof(_options.RegistryClient), "RegistryClient option is required");
             }
-
-            _httpClient = new HttpClient(_options.BackChannelMessageHandler ?? new HttpClientHandler());
         }
 
         public async Task Invoke(HttpContext context)
@@ -68,7 +64,7 @@ namespace Equalizer.Nanophone.Middleware
             var uriBuilder = new UriBuilder(requestUri) { Host = instance.Address, Port = instance.Port };
             var newUri = uriBuilder.Uri;
             context.Response.Headers.Add("Location", new StringValues(newUri.ToString()));
-            context.Response.StatusCode = (int)StatusCodes.Status303SeeOther;
+            context.Response.StatusCode = StatusCodes.Status303SeeOther;
         }
     }
 }

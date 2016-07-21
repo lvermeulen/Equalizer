@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Equalizer.Routers;
 using Nanophone.Core;
-using Nanophone.RegistryHost.ConsulRegistry;
 using Xunit;
 
 namespace Equalizer.Nanophone.Tests

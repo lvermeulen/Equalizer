@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Equalizer.Nanophone.Router
+﻿namespace Equalizer.Nanophone.Router
 {
     public class NanophoneRouterConfiguration
     {
