@@ -7,7 +7,8 @@ Equalizer is an extensible library for choosing the next item from a list of ite
 * FailOverRouter: chooses specific item if available, otherwise a different one
 * RandomRouter: chooses a random next item
 * RoundRobinRouter: chooses the next item in round robin fashion
-* RoundRobinAddressRouter for [Nanophone](https://github.com/lvermeulen/Nanophone): chooses the next item with a different address
+* RoundRobinAddressRouter for [Nanophone](https://github.com/lvermeulen/Nanophone): chooses the next service instance with a different address
+* Load balancing middleware for aspnetcore: redirects requests to the next chosen service instance
 
 ##Usage:
 * CallbackRouter:
@@ -120,6 +121,23 @@ Equalizer is an extensible library for choosing the next item from a list of ite
     next = router.Choose(instances);
     Assert.NotNull(next);
     Assert.Equal("1", next.Address);
+~~~~
+
+* Middleware:
+~~~~
+	// create registry client
+    var registryClient = new RegistryClient("my-url-path-prefix-", new RoundRobinAddressRouter());
+
+	// add Consul registry host
+    var consul = new ConsulRegistryHost();
+    registryClient.AddRegistryHost(consul);
+
+	// add in-memory registry host
+	var inmemory = new InMemoryRegistryHost();
+	registryClient.AddRegistryHost(inmemory);
+
+	// use IApplicationBuilder extension
+    app.UseEqualizer(new EqualizerMiddlewareOptions { RegistryClient = registryClient });
 ~~~~
 
 ##Thanks
