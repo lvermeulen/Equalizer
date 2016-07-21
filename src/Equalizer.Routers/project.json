@@ -12,7 +12,7 @@
   "packOptions": {
     "owners": [ "Luk Vermeulen" ],
     "requireLicenseAcceptance": true,
-    "summary": "",
+    "summary": "Equalizer routers",
     "tags": [ "Equalizer", "routing", "router", "load balancing", "load balancer", "Nanophone" ],
     "projectUrl": "https://github.com/lvermeulen/Equalizer",
     "licenseUrl": "https://github.com/lvermeulen/Equalizer/blob/master/LICENSE",
