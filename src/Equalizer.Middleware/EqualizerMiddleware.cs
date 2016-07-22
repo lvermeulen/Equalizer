@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Equalizer.Middleware.Core;
 using Equalizer.Middleware.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -36,6 +37,11 @@ namespace Equalizer.Middleware
                 throw new ArgumentNullException(nameof(_middlewareOptions.RegistryClient), "RegistryClient option is required");
             }
 
+            if (_middlewareOptions.PathExclusions == null)
+            {
+                _middlewareOptions.PathExclusions = new string[] { };
+            }
+
             s_log.Info("Equalizer middleware initialized");
         }
 
@@ -52,6 +58,15 @@ namespace Equalizer.Middleware
             if (!isHandledMethod)
             {
                 s_log.Info($"Equalizer middleware skipping request {requestUri} - request method {context.Request.Method} is not handled");
+                await _next.Invoke(context);
+                return;
+            }
+
+            // check if path is excluded
+            var excludedPath =_middlewareOptions.PathExclusions.FirstOrDefault(x => requestUri.StartsWithSegments(x));
+            if (excludedPath != null)
+            {
+                s_log.Info($"Equalizer middleware skipping request {requestUri} - path {excludedPath} is excluded");
                 await _next.Invoke(context);
                 return;
             }

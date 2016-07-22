@@ -57,22 +57,41 @@ namespace Equalizer.Middleware.Tests
         {
             var builder = new WebHostBuilder().Configure(app =>
             {
-                app.UseEqualizer(new EqualizerMiddlewareOptions { RegistryClient = BuildRegistryClient() });
+                app.UseEqualizer(new EqualizerMiddlewareOptions
+                {
+                    RegistryClient = BuildRegistryClient(),
+                    PathExclusions = new[] { "ui" }
+                });
             });
 
             return new TestServer(builder);
         }
 
+        private bool IsRedirectedTo(HttpResponseMessage responseMessage, string hostName, int port, HttpStatusCode statusCode)
+        {
+            return responseMessage.Headers.Location.Host == hostName
+                && responseMessage.Headers.Location.Port == port
+                && responseMessage.StatusCode == statusCode;
+        }
+
+        private bool IsPassedThrough(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
+        {
+            IEnumerable<string> testHeaderValue;
+            responseMessage.RequestMessage.Headers.TryGetValues("testHeader", out testHeaderValue);
+            bool isHeaderPresent = testHeaderValue.Single() == "testHeaderValue";
+
+            return isHeaderPresent
+                && requestMessage.RequestUri.Equals(responseMessage.RequestMessage.RequestUri);
+        }
+
         [Fact]
-        public async Task ForwardToServiceInstances()
+        public async Task RedirectToServiceInstances()
         {
             var server = BuildTestServer();
             var requestMessage = new HttpRequestMessage(new HttpMethod("GET"), "http://host:6789/orders/1");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
 
-            Assert.Equal(HttpStatusCode.SeeOther, responseMessage.StatusCode);
-            Assert.Equal("host3", responseMessage.Headers.Location.Host);
-            Assert.Equal(1238, responseMessage.Headers.Location.Port);
+            Assert.True(IsRedirectedTo(responseMessage, "host3", 1238, HttpStatusCode.SeeOther));
         }
 
         [Theory]
@@ -87,10 +106,18 @@ namespace Equalizer.Middleware.Tests
             requestMessage.Headers.Add("testHeader", "testHeaderValue");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
 
-            Assert.Equal(requestMessage.RequestUri, responseMessage.RequestMessage.RequestUri);
-            IEnumerable<string> testHeaderValue;
-            responseMessage.RequestMessage.Headers.TryGetValues("testHeader", out testHeaderValue);
-            Assert.Equal("testHeaderValue", testHeaderValue.Single());
+            Assert.True(IsPassedThrough(requestMessage, responseMessage));
+        }
+
+        [Fact]
+        public async Task PassThroughPathExclusions()
+        {
+            var server = BuildTestServer();
+            var requestMessage = new HttpRequestMessage(new HttpMethod("GET"), "http://host:6789/ui/views/Home");
+            requestMessage.Headers.Add("testHeader", "testHeaderValue");
+            var responseMessage = await server.CreateClient().SendAsync(requestMessage);
+
+            Assert.True(IsPassedThrough(requestMessage, responseMessage));
         }
 
         [Fact]
@@ -101,10 +128,7 @@ namespace Equalizer.Middleware.Tests
             requestMessage.Headers.Add("testHeader", "testHeaderValue");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
 
-            Assert.Equal(requestMessage.RequestUri, responseMessage.RequestMessage.RequestUri);
-            IEnumerable<string> testHeaderValue;
-            responseMessage.RequestMessage.Headers.TryGetValues("testHeader", out testHeaderValue);
-            Assert.Equal("testHeaderValue", testHeaderValue.Single());
+            Assert.True(IsPassedThrough(requestMessage, responseMessage));
         }
     }
 }
