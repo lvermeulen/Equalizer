@@ -43,19 +43,11 @@ namespace Equalizer.Middleware.Core
             return allInstances;
         }
 
-        private bool KeyValuePairMatchesPathAndQuery(KeyValuePair<string, string> keyValuePair, string prefixName, string pathAndQuery)
-        {
-            bool prefixEquals = keyValuePair.Key.Equals(prefixName, StringComparison.OrdinalIgnoreCase);
-            bool startsWith = pathAndQuery.StartsWith(keyValuePair.Value, StringComparison.Ordinal);
-
-            return prefixEquals && startsWith;
-        }
-
         public IList<RegistryInformation> FindServiceInstancesAsync(Uri uri, IEnumerable<RegistryInformation> instances)
         {
-            var pathAndQuery = uri.GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
             var results = instances
-                .Where(x => x.KeyValuePairs.Any(kvp => KeyValuePairMatchesPathAndQuery(kvp, PrefixName, pathAndQuery)))
+                .Where(x => x.KeyValuePairs.Any(kvp => kvp.Key.Equals(PrefixName, StringComparison.OrdinalIgnoreCase) 
+                    && uri.StartsWithSegments(kvp.Value)))
                 .ToList();
 
             return results;
