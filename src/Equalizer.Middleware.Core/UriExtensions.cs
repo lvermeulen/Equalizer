@@ -55,6 +55,13 @@ namespace Equalizer.Middleware.Core
 
         public static bool StartsWithSegments(this Uri uri, string path)
         {
+            // support root path
+            bool isRootPath = string.IsNullOrEmpty(path) || path == "/";
+            if (isRootPath)
+            {
+                return uri.Segments.Length == 1;
+            }
+
             // trim query string & separators
             path = path.TrimAfter("?").Trim('/');
             var pathSegments = path.Split('/');
