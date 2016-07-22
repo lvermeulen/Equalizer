@@ -60,7 +60,7 @@ namespace Equalizer.Middleware.Tests
                 app.UseEqualizer(new EqualizerMiddlewareOptions
                 {
                     RegistryClient = BuildRegistryClient(),
-                    PathExclusions = new[] { "ui" }
+                    PathExclusions = new[] { "/", "ui" }
                 });
             });
 
@@ -109,11 +109,14 @@ namespace Equalizer.Middleware.Tests
             Assert.True(IsPassedThrough(requestMessage, responseMessage));
         }
 
-        [Fact]
-        public async Task PassThroughPathExclusions()
+        [Theory]
+        [InlineData("http://host:6789")]
+        [InlineData("http://host:6789/")]
+        [InlineData("http://host:6789/ui/views/Home")]
+        public async Task PassThroughPathExclusions(string url)
         {
             var server = BuildTestServer();
-            var requestMessage = new HttpRequestMessage(new HttpMethod("GET"), "http://host:6789/ui/views/Home");
+            var requestMessage = new HttpRequestMessage(new HttpMethod("GET"), url);
             requestMessage.Headers.Add("testHeader", "testHeaderValue");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
 
