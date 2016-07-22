@@ -41,7 +41,11 @@ namespace Equalizer.LoadBalancer
             Configuration.Bind(routerConfig);
 
             var registryClient = BuildRegistryClient(routerConfig.Router.Prefix, routerConfig.Consul.IgnoreCriticalServices);
-            app.UseEqualizer(new EqualizerMiddlewareOptions { RegistryClient = registryClient });
+            app.UseEqualizer(new EqualizerMiddlewareOptions
+            {
+                RegistryClient = registryClient,
+                PathExclusions = new[] { "/" } // exclude root from redirects
+            });
         }
     }
 }
