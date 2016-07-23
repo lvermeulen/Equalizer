@@ -95,11 +95,11 @@ namespace Equalizer.Middleware.Tests
         }
 
         [Theory]
-        [InlineData("POST", "4010")]
-        [InlineData("PUT", "4011")]
-        [InlineData("OPTIONS", "4012")]
-        [InlineData("PATCH", "4013")]
-        public async Task PassThroughIgnoredHttpMethods(string methodType, string port)
+        [InlineData("POST")]
+        [InlineData("PUT")]
+        [InlineData("OPTIONS")]
+        [InlineData("PATCH")]
+        public async Task PassThroughIgnoredHttpMethods(string methodType)
         {
             var server = BuildTestServer();
             var requestMessage = new HttpRequestMessage(new HttpMethod(methodType), "");

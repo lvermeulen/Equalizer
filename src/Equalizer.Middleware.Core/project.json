@@ -13,7 +13,7 @@
     "owners": [ "Luk Vermeulen" ],
     "requireLicenseAcceptance": true,
     "summary": "Equalizer middleware core components",
-    "tags": [ "Equalizer", "routing", "router", "load balancing", "load balancer", "Nanophone", "middleware" ],
+    "tags": [ "Equalizer", "routing", "router", "load balancing", "load balancer", "Nanophone", "middleware", "aspnetcore" ],
     "projectUrl": "https://github.com/lvermeulen/Equalizer",
     "licenseUrl": "https://github.com/lvermeulen/Equalizer/blob/master/LICENSE",
     "iconUrl": "http://i.imgur.com/6XiJ6Yz.png",
@@ -27,7 +27,7 @@
     "NETStandard.Library": "1.6.0",
     "Equalizer.Core": { "target": "project" },
     "Equalizer.Routers": { "target": "project" },
-    "Nanophone.Core": "1.3.1-alpha"
+    "Nanophone.Core": "1.4.0-alpha"
   },
 
   "frameworks": {

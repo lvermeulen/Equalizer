@@ -7,7 +7,7 @@
     "Equalizer.Middleware": { "target": "project" },
     "Microsoft.AspNetCore.Hosting": "1.0.0",
     "Microsoft.AspNetCore.TestHost": "1.0.0",
-    "Nanophone.RegistryHost.InMemoryRegistry": "1.3.1-alpha",
+    "Nanophone.RegistryHost.InMemoryRegistry": "1.4.0-alpha",
     "xunit": "2.2.0-beta2-build3300"
   },
 

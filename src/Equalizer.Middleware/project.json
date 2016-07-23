@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "authors": [ "Luk Vermeulen" ],
   "copyright": "Copyright 2016",
-  "description": "Equalizer middleware",
+  "description": "Equalizer middleware for aspnetcore",
 
   "buildOptions": {
     "define": [ "LIBLOG_PORTABLE" ],
@@ -14,7 +14,7 @@
     "owners": [ "Luk Vermeulen" ],
     "requireLicenseAcceptance": true,
     "summary": "Equalizer middleware",
-    "tags": [ "Equalizer", "routing", "router", "load balancing", "load balancer", "Nanophone", "middleware" ],
+    "tags": [ "Equalizer", "routing", "router", "load balancing", "load balancer", "Nanophone", "middleware", "aspnetcore" ],
     "projectUrl": "https://github.com/lvermeulen/Equalizer",
     "licenseUrl": "https://github.com/lvermeulen/Equalizer/blob/master/LICENSE",
     "iconUrl": "http://i.imgur.com/6XiJ6Yz.png",

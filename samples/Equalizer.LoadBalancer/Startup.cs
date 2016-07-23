@@ -22,10 +22,9 @@ namespace Equalizer.LoadBalancer
             Configuration = builder.Build();
         }
 
-        private RegistryClient BuildRegistryClient(string prefixName, bool ignoreCriticalServices)
+        private RegistryClient BuildRegistryClient(string prefixName)
         {
-            var consulConfig = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = ignoreCriticalServices };
-            var consul = new ConsulRegistryHost(consulConfig);
+            var consul = new ConsulRegistryHost();
 
             var result = new RegistryClient(prefixName, new RoundRobinAddressRouter());
             result.AddRegistryHost(consul);
@@ -33,14 +32,14 @@ namespace Equalizer.LoadBalancer
             return result;
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddNLog();
 
-            var routerConfig = new LoadBalancerConfiguration();
-            Configuration.Bind(routerConfig);
+            var loadBalancerConfig = new LoadBalancerConfiguration();
+            Configuration.Bind(loadBalancerConfig);
 
-            var registryClient = BuildRegistryClient(routerConfig.Router.Prefix, routerConfig.Consul.IgnoreCriticalServices);
+            var registryClient = BuildRegistryClient(loadBalancerConfig.Router.Prefix);
             app.UseEqualizer(new EqualizerMiddlewareOptions
             {
                 RegistryClient = registryClient,
