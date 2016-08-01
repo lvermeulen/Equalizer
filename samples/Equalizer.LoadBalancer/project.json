@@ -5,6 +5,7 @@
       "type": "platform"
     },
     "Microsoft.AspNetCore.Hosting": "1.0.0",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
@@ -17,9 +18,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Equalizer.Middleware.Core": { "target": "project" },
     "Equalizer.Middleware": { "target": "project" },
-    "Nanophone.RegistryHost.ConsulRegistry": "1.4.0-alpha",
-    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
-    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4",
+    "Nanophone.RegistryHost.ConsulRegistry": "1.5.0-alpha"
   },
 
   "tools": {

@@ -25,11 +25,11 @@
   },
 
   "dependencies": {
-    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
-    "Microsoft.Extensions.Options": "1.0.0",
-    "NETStandard.Library": "1.6.0",
     "Equalizer.Middleware.Core": { "target": "project" },
-    "Microsoft.AspNetCore.Http.Extensions": "1.0.0"
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+    "Microsoft.AspNetCore.Http.Extensions": "1.0.0",
+    "Microsoft.Extensions.Options": "1.0.0",
+    "NETStandard.Library": "1.6.0"
   },
 
   "frameworks": {
