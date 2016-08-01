@@ -55,7 +55,7 @@ Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEac
         -hideskipped:Filter `
         -oldstyle 
 }
-<#
+
 # upload to coveralls.io
 Write-Output "Sending code coverage results to coveralls.io"
 
@@ -63,7 +63,7 @@ Write-Output "Sending code coverage results to coveralls.io"
     --opencover $tempCoverageFileName `
     --full-sources `
     --repo-token $CoverallsRepoToken
-#>
+
 7z a codecoverage.zip $tempCoverageFileName
 Push-AppveyorArtifact $tempCoverageFileName
 
