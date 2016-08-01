@@ -4,12 +4,21 @@ branches:
   - master
 pull_requests:
   do_not_increment_build_number: true
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: 7AjpkjtpN2vWJAJM38Hyz30vl/HP+OQLTJun79ZhCyBx8L4G/W4VJZ+w/vijLuHd
+  COVER_FILTER: '+[Equalizer*]* -[*]*.Logging.* -[*Tests]*'
 install:
   - ps: .\build\install.ps1
 build_script:
 - ps: .\build\build.ps1 $env:APPVEYOR_BUILD_VERSION $env:APPVEYOR_REPO_TAG_NAME
 test_script:
-- ps: .\build\test.ps1
+- ps: |
+    if ($true)
+    {
+        Invoke-Expression ".\build\test.ps1"
+        Invoke-Expression ".\build\cover.ps1 $env:COVERALLS_REPO_TOKEN $env:COVER_FILTER"
+    }
 artifacts:
 - path: '**\*.nupkg'
 deploy:
