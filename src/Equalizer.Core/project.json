@@ -1,6 +1,6 @@
 ﻿{
   "title": "Equalizer.Core",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "authors": [ "Luk Vermeulen" ],
   "copyright": "Copyright 2016",
   "description": "Equalizer is aspnetcore middleware for load-balancing service instances from Nanophone and contains several routers to choose from",

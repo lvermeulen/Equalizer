@@ -1,6 +1,6 @@
 {
   "title": "Equalizer.Middleware",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "authors": [ "Luk Vermeulen" ],
   "copyright": "Copyright 2016",
   "description": "Equalizer middleware for aspnetcore",
