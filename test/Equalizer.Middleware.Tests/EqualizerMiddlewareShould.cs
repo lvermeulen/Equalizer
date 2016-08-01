@@ -16,12 +16,12 @@ namespace Equalizer.Middleware.Tests
     {
         private RegistryClient BuildRegistryClient()
         {
-            var oneDotOne = new RegistryInformation("One", "host1", 1234, "1.1", KeyValues(new[] { "key1", "value1", "key2", "value2" }));
-            var oneDotTwo = new RegistryInformation("One", "host1", 1235, "1.2", KeyValues(new[] { "key1", "value1", "key2", "value2" }));
-            var twoDotOne = new RegistryInformation("Two", "host2", 1236, "2.1", KeyValues(new[] { "key1", "value1", "prefix", "/path" }));
-            var twoDotTwo = new RegistryInformation("Two", "host2", 1237, "2.2", KeyValues(new[] { "prefix", "/path", "key2", "value2" }));
-            var threeDotOne = new RegistryInformation("Three", "host3", 1238, "3.1", KeyValues(new[] { "prefix", "/orders", "key2", "value2" }));
-            var threeDotTwo = new RegistryInformation("Three", "host3", 1239, "3.2", KeyValues(new[] { "key1", "value1", "prefix", "/customers" }));
+            var oneDotOne = new RegistryInformation { Name = "One", Address = "host1", Port = 1234, Version = "1.1", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
+            var oneDotTwo = new RegistryInformation { Name = "One", Address = "host1", Port = 1235, Version = "1.2", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
+            var twoDotOne = new RegistryInformation { Name = "Two", Address = "host2", Port = 1236, Version = "2.1", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/path" }) };
+            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "host2", Port = 1237, Version = "2.2", KeyValuePairs = KeyValues(new[] { "prefix", "/path", "key2", "value2" }) };
+            var threeDotOne = new RegistryInformation { Name = "Three", Address = "host3", Port = 1238, Version = "3.1", KeyValuePairs = KeyValues(new[] { "prefix", "/orders", "key2", "value2" }) };
+            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "host3", Port = 1239, Version = "3.2", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/customers" }) };
             var instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,

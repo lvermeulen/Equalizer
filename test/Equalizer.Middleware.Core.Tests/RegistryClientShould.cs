@@ -13,12 +13,12 @@ namespace Equalizer.Middleware.Core.Tests
 
         public RegistryClientShould()
         {
-            var oneDotOne = new RegistryInformation("One", "1", 1234, "some version", KeyValues(new[] { "key1", "value1", "key2", "value2" }));
-            var oneDotTwo = new RegistryInformation("One", "1", 1234, "some version", KeyValues(new[] { "key1", "value1", "key2", "value2" }));
-            var twoDotOne = new RegistryInformation("Two", "2", 1234, "some version", KeyValues(new[] { "key1", "value1", "prefix", "/path" }));
-            var twoDotTwo = new RegistryInformation("Two", "2", 1234, "some version", KeyValues(new[] { "prefix", "/path", "key2", "value2" }));
-            var threeDotOne = new RegistryInformation("Three", "3", 1234, "some version", KeyValues(new[] { "prefix", "/orders", "key2", "value2" }));
-            var threeDotTwo = new RegistryInformation("Three", "3", 1234, "some version", KeyValues(new[] { "key1", "value1", "prefix", "/customers" }));
+            var oneDotOne = new RegistryInformation { Name = "One", Address = "1", Port = 1234, Version = "some version", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
+            var oneDotTwo = new RegistryInformation { Name = "One", Address = "1", Port = 1234, Version = "some version", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
+            var twoDotOne = new RegistryInformation { Name = "Two", Address = "2", Port = 1234, Version = "some version", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/path" }) };
+            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "2", Port = 1234, Version = "some version", KeyValuePairs = KeyValues(new[] { "prefix", "/path", "key2", "value2" }) };
+            var threeDotOne = new RegistryInformation { Name = "Three", Address = "3", Port = 1234, Version = "some version", KeyValuePairs = KeyValues(new[] { "prefix", "/orders", "key2", "value2" }) };
+            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "3", Port = 1234, Version = "some version", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/customers"}) };
             _instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,

@@ -9,12 +9,12 @@ namespace Equalizer.Middleware.Core.Tests
         [Fact]
         public void WrapAround()
         {
-            var oneDotOne = new RegistryInformation("One", "1", 1234, "some version");
-            var oneDotTwo = new RegistryInformation("One", "1", 1234, "some version");
-            var twoDotOne = new RegistryInformation("Two", "2", 1234, "some version");
-            var twoDotTwo = new RegistryInformation("Two", "2", 1234, "some version");
-            var threeDotOne = new RegistryInformation("Three", "3", 1234, "some version");
-            var threeDotTwo = new RegistryInformation("Three", "3", 1234, "some version");
+            var oneDotOne = new RegistryInformation { Name = "One", Address = "1", Port = 1234, Version = "some version" };
+            var oneDotTwo = new RegistryInformation { Name = "One", Address = "1", Port = 1234, Version = "some version" };
+            var twoDotOne = new RegistryInformation { Name = "Two", Address = "2", Port = 1234, Version = "some version" } ;
+            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "2", Port = 1234, Version = "some version" };
+            var threeDotOne = new RegistryInformation { Name = "Three", Address = "3", Port = 1234, Version = "some version" };
+            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "3", Port = 1234, Version = "some version" };
             var instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,
