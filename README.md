@@ -4,6 +4,7 @@ Equalizer is aspnetcore middleware for load-balancing service instances from [Na
 
 ##Features:
 * Load balancing middleware for aspnetcore: redirects requests to the next chosen service instance
+* TrafficAllocationRouter: chooses from items matching a condition for a percentage of the routing calls 
 * CallbackRouter: chooses the next item based on the provided callback
 * FailOverRouter: chooses specific item if available, otherwise a different one
 * RandomRouter: chooses a random next item
@@ -30,6 +31,22 @@ Equalizer is aspnetcore middleware for load-balancing service instances from [Na
 		RegistryClient = registryClient, 
 		PathExclusions = new[] { "/" } 
 	});
+~~~~
+
+* TrafficAllocationRouter:
+~~~~
+    var first = "1";
+    var second = "2";
+    var third = "3";
+    var instances = new List<string> { first, second, third };
+
+    decimal variation = .10M;
+    var router = new TrafficAllocationRouter<string>(x => x.Where(item => item == second).ToList(), variation);
+
+    for (int i = 0; i < 100*1000; i++)
+    {
+        string result = router.Choose(instances);
+    }
 ~~~~
 
 * CallbackRouter:
