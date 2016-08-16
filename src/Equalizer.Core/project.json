@@ -24,7 +24,7 @@
   },
 
   "dependencies": {
-    "Nanophone.Core": "1.6.0-alpha",
+    "Nanophone.Core": "1.6.1-alpha",
     "NETStandard.Library": "1.6.0"
   },
 
