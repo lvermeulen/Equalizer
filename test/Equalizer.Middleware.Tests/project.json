@@ -8,6 +8,7 @@
     "Equalizer.Middleware": { "target": "project" },
     "Microsoft.AspNetCore.Hosting": "1.0.0",
     "Microsoft.AspNetCore.TestHost": "1.0.0",
+    "Microsoft.NETCore.App": "1.0.1",
     "Nanophone.RegistryHost.InMemoryRegistry": "1.6.2-alpha",
     "OpenCover": "4.6.519",
     "xunit": "2.2.0-beta2-build3300"
