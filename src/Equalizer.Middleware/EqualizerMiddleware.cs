@@ -63,7 +63,7 @@ namespace Equalizer.Middleware
             }
 
             // check if path is excluded
-            var excludedPath =_middlewareOptions.PathExclusions.FirstOrDefault(x => requestUri.StartsWithSegments(x));
+            var excludedPath =_middlewareOptions.PathExclusions.FirstOrDefault(requestUri.StartsWithSegments);
             if (excludedPath != null)
             {
                 s_log.Info($"Equalizer middleware skipping request {requestUri} - path {excludedPath} is excluded");

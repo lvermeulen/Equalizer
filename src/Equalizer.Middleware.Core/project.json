@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Equalizer.Middleware.Core",
   "version": "1.2.0",
   "authors": [ "Luk Vermeulen" ],
@@ -27,7 +27,7 @@
     "NETStandard.Library": "1.6.0",
     "Equalizer.Core": { "target": "project" },
     "Equalizer.Routers": { "target": "project" },
-    "Nanophone.Core": "1.6.1-alpha"
+    "Nanophone.Core": "1.6.2-alpha"
   },
 
   "frameworks": {
