@@ -16,12 +16,12 @@ namespace Equalizer.Middleware.Tests
     {
         private RegistryClient BuildRegistryClient()
         {
-            var oneDotOne = new RegistryInformation { Name = "One", Address = "host1", Port = 1234, Version = "1.1", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
-            var oneDotTwo = new RegistryInformation { Name = "One", Address = "host1", Port = 1235, Version = "1.2", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
-            var twoDotOne = new RegistryInformation { Name = "Two", Address = "host2", Port = 1236, Version = "2.1", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/path" }) };
-            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "host2", Port = 1237, Version = "2.2", KeyValuePairs = KeyValues(new[] { "prefix", "/path", "key2", "value2" }) };
-            var threeDotOne = new RegistryInformation { Name = "Three", Address = "host3", Port = 1238, Version = "3.1", KeyValuePairs = KeyValues(new[] { "prefix", "/orders", "key2", "value2" }) };
-            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "host3", Port = 1239, Version = "3.2", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/customers" }) };
+            var oneDotOne = new RegistryInformation { Name = "One", Address = "http://1.1.0.0", Port = 1234, Version = "1.1.0", Tags = new List<string> { "key1value1", "key2value2" } };
+            var oneDotTwo = new RegistryInformation { Name = "One", Address = "http://1.2.0.0", Port = 1235, Version = "1.2.0", Tags = new List<string> { "key1value1", "key2value2" } };
+            var twoDotOne = new RegistryInformation { Name = "Two", Address = "http://2.1.0.0", Port = 1236, Version = "2.1.0", Tags = new List<string> { "key1value1", "prefix/path" } };
+            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "http://2.2.0.0", Port = 1237, Version = "2.2.0", Tags = new List<string> { "prefix/path", "key2value2" } };
+            var threeDotOne = new RegistryInformation { Name = "Three", Address = "http://3.1.0.0", Port = 1238, Version = "3.1.0", Tags = new List<string> { "prefix/orders", "key2value2" } };
+            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "http://3.2.0.0", Port = 1239, Version = "3.2.0", Tags = new List<string> { "key1value1", "prefix/customers" } };
             var instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,
@@ -33,24 +33,6 @@ namespace Equalizer.Middleware.Tests
             registryClient.AddRegistryHost(new InMemoryRegistryHost { ServiceInstances = instances });
 
             return registryClient;
-        }
-
-        private IEnumerable<KeyValuePair<string, string>> KeyValues(string[] keyValues)
-        {
-            // must have > 0 and even number
-            if (keyValues.Length == 0 || keyValues.Length % 2 != 0)
-            {
-                return null;
-            }
-
-            var result = new List<KeyValuePair<string, string>>();
-            for (int i = 0; i < keyValues.Length; i++)
-            {
-                result.Add(new KeyValuePair<string, string>(keyValues[i], keyValues[i + 1]));
-                i++;
-            }
-
-            return result;
         }
 
         private TestServer BuildTestServer()
@@ -91,7 +73,7 @@ namespace Equalizer.Middleware.Tests
             var requestMessage = new HttpRequestMessage(new HttpMethod("GET"), "http://host:6789/orders/1");
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
 
-            Assert.True(IsRedirectedTo(responseMessage, "host3", 1238, HttpStatusCode.SeeOther));
+            Assert.True(IsRedirectedTo(responseMessage, "3.1.0.0", 1238, HttpStatusCode.SeeOther));
         }
 
         [Theory]

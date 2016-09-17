@@ -46,8 +46,8 @@ namespace Equalizer.Middleware.Core
         public IList<RegistryInformation> FindServiceInstancesAsync(Uri uri, IEnumerable<RegistryInformation> instances)
         {
             var results = instances
-                .Where(x => x.KeyValuePairs.Any(kvp => kvp.Key.Equals(PrefixName, StringComparison.OrdinalIgnoreCase) 
-                    && uri.StartsWithSegments(kvp.Value)))
+                .Where(x => x.Tags.Any(tag => tag.StartsWith(PrefixName, StringComparison.OrdinalIgnoreCase)
+                    && uri.StartsWithSegments(tag.Substring(PrefixName.Length))))
                 .ToList();
 
             return results;
