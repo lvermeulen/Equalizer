@@ -24,14 +24,13 @@
   },
 
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
     "Equalizer.Core": { "target": "project" }
   },
 
   "frameworks": {
     "net451": {},
     "netstandard1.6": {
-      "imports": "dnxcore50"
+      "NETStandard.Library": "1.6.0"
     }
   }
 }

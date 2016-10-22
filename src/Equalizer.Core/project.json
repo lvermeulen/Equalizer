@@ -24,14 +24,13 @@
   },
 
   "dependencies": {
-    "Nanophone.Core": "1.6.2-alpha",
-    "NETStandard.Library": "1.6.0"
+    "Nanophone.Core": "1.6.2-alpha"
   },
 
   "frameworks": {
     "net451": {},
     "netstandard1.6": {
-      "imports": "dnxcore50"
+      "NETStandard.Library": "1.6.0"
     }
   }
 }
