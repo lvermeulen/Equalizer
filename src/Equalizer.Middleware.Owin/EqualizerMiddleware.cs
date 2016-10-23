@@ -1,23 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Equalizer.Middleware.Core;
-using Equalizer.Middleware.Logging;
+using Equalizer.Middleware.Owin.Logging;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using Microsoft.Owin;
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
-namespace Equalizer.Middleware
+namespace Equalizer.Middleware.Owin
 {
     public class EqualizerMiddleware
     {
         private static readonly ILog s_log = LogProvider.For<EqualizerMiddleware>();
 
-        private readonly RequestDelegate _next;
+        private readonly AppFunc _next;
         private readonly EqualizerMiddlewareOptions _middlewareOptions;
 
-        public EqualizerMiddleware(RequestDelegate next, IOptions<EqualizerMiddlewareOptions> options)
+        public EqualizerMiddleware(AppFunc next, EqualizerMiddlewareOptions options)
         {
             if (next == null)
             {
@@ -30,7 +31,7 @@ namespace Equalizer.Middleware
             }
 
             _next = next;
-            _middlewareOptions = options.Value;
+            _middlewareOptions = options;
 
             if (_middlewareOptions.RegistryClient == null)
             {
@@ -45,9 +46,10 @@ namespace Equalizer.Middleware
             s_log.Info("Equalizer middleware initialized");
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(IDictionary<string, object> environment)
         {
-            var requestUri = new Uri(context.Request.GetEncodedUrl());
+            var context = new OwinContext(environment);
+            var requestUri = context.Request.Uri;
 
             // check if request is handled
             bool isGet = string.Equals(context.Request.Method, "GET", StringComparison.OrdinalIgnoreCase);
@@ -58,16 +60,16 @@ namespace Equalizer.Middleware
             if (!isHandledMethod)
             {
                 s_log.Info($"Equalizer middleware skipping request {requestUri} - request method {context.Request.Method} is not handled");
-                await _next.Invoke(context);
+                await _next.Invoke(context.Environment);
                 return;
             }
 
             // check if path is excluded
-            string excludedPath =_middlewareOptions.PathExclusions.FirstOrDefault(requestUri.StartsWithSegments);
+            string excludedPath = _middlewareOptions.PathExclusions.FirstOrDefault(requestUri.StartsWithSegments);
             if (excludedPath != null)
             {
                 s_log.Info($"Equalizer middleware skipping request {requestUri} - path {excludedPath} is excluded");
-                await _next.Invoke(context);
+                await _next.Invoke(context.Environment);
                 return;
             }
 
@@ -76,7 +78,7 @@ namespace Equalizer.Middleware
             if (!instancesForUri.Any())
             {
                 s_log.Info($"Equalizer middleware skipping request: {requestUri} - no alternative service instances found");
-                await _next.Invoke(context);
+                await _next.Invoke(context.Environment);
                 return;
             }
 

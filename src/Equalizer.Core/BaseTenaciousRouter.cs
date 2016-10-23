@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Equalizer.Core
 {
@@ -16,6 +15,6 @@ namespace Equalizer.Core
             return next;
         }
 
-        public abstract T Choose(T previous, IList<T> instances);
+        protected abstract T Choose(T previous, IList<T> instances);
     }
 }
