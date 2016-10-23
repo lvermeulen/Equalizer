@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Equalizer.Core;
 
 namespace Equalizer.Routers
@@ -7,9 +6,9 @@ namespace Equalizer.Routers
     public class RoundRobinRouter<T> : BaseTenaciousRouter<T>
         where T : class
     {
-        public override T Choose(T previous, IList<T> instances)
+        protected override T Choose(T previous, IList<T> instances)
         {
-            var previousIndex = instances.IndexOf(Previous);
+            int previousIndex = instances.IndexOf(Previous);
             if (previousIndex == instances.Count - 1)
             {
                 previousIndex = -1;

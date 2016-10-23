@@ -15,7 +15,7 @@ namespace Equalizer.Middleware.Core
             _discriminator = (x, y) => x?.Address == y?.Address;
         }
 
-        public override RegistryInformation Choose(RegistryInformation previous, IList<RegistryInformation> instances)
+        protected override RegistryInformation Choose(RegistryInformation previous, IList<RegistryInformation> instances)
         {
             int previousIndex = instances.IndexOf(previous);
 

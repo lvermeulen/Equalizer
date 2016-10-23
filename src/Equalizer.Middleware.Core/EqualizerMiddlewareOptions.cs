@@ -1,6 +1,4 @@
-﻿using Equalizer.Middleware.Core;
-
-namespace Equalizer.Middleware
+﻿namespace Equalizer.Middleware.Core
 {
     public class EqualizerMiddlewareOptions
     {

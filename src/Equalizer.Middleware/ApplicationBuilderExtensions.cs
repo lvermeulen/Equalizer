@@ -1,4 +1,5 @@
 ﻿using System;
+using Equalizer.Middleware.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 
