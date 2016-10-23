@@ -9,9 +9,9 @@ namespace Equalizer.Routers.Tests
         [Fact]
         public void SatisfyVariation()
         {
-            var first = "1";
-            var second = "2";
-            var third = "3";
+            string first = "1";
+            string second = "2";
+            string third = "3";
             var instances = new List<string> { first, second, third };
 
             decimal variation = .10M;
