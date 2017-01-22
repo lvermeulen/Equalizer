@@ -6,6 +6,18 @@ namespace Equalizer.Routers.Tests
     public class RandomRouterShould
     {
         [Fact]
+        public void HaveNoResult()
+        {
+            var instances = new List<string>();
+
+            var router = new RandomRouter<string>();
+
+            // return null
+            string next = router.Choose(instances);
+            Assert.Null(next);
+        }
+
+        [Fact]
         public void HaveResult()
         {
             string first = "1";

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -114,6 +115,17 @@ namespace Equalizer.Middleware.Tests
             var responseMessage = await server.CreateClient().SendAsync(requestMessage);
 
             Assert.True(IsPassedThrough(requestMessage, responseMessage));
+        }
+
+        [Fact]
+        public void RequireValidParameters()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                new TestServer(new WebHostBuilder().Configure(app =>
+                {
+                    app.UseEqualizer(null);
+                }))
+            );
         }
     }
 }

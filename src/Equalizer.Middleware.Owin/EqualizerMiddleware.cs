@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Equalizer.Middleware.Core;
@@ -18,6 +19,7 @@ namespace Equalizer.Middleware.Owin
         private readonly AppFunc _next;
         private readonly EqualizerMiddlewareOptions _middlewareOptions;
 
+        [ExcludeFromCodeCoverage]
         public EqualizerMiddleware(AppFunc next, EqualizerMiddlewareOptions options)
         {
             if (next == null)

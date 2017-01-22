@@ -17,7 +17,7 @@ namespace Equalizer.Middleware.Core
             return s;
         }
 
-        private static bool StartsWith<T>(this IEnumerable<T> left, IEnumerable<T> right, IEqualityComparer<T> comparer = null)
+        internal static bool StartsWith<T>(this IEnumerable<T> left, IEnumerable<T> right, IEqualityComparer<T> comparer = null)
         {
             if (left == null)
             {

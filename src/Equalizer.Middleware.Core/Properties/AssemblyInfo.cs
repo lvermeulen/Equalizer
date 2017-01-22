@@ -17,3 +17,4 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("f62983c3-bf11-42c1-b4db-a5496bd257df")]
+[assembly:InternalsVisibleTo("Equalizer.Middleware.Core.Tests")]

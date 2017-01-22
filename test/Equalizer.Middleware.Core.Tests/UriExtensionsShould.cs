@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Equalizer.Middleware.Core.Tests
@@ -24,6 +26,21 @@ namespace Equalizer.Middleware.Core.Tests
         public void HandleRootPath(string url, string path, bool expectedResult)
         {
             Assert.Equal(expectedResult, new Uri(url).StartsWithSegments(path));
+        }
+
+        [Fact]
+        public void RequireValidParameters()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                IEnumerable<string> strings = null;
+                strings.StartsWith(Enumerable.Empty<string>());
+            });
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Enumerable.Empty<string>().StartsWith(null);
+            });
         }
     }
 }
