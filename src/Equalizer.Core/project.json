@@ -24,7 +24,7 @@
   },
 
   "dependencies": {
-    "Nanophone.Core": "1.6.2-alpha"
+    "Nanophone.Core": "1.7.0-alpha"
   },
 
   "frameworks": {

@@ -18,8 +18,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Equalizer.Middleware.Core": { "target": "project" },
     "Equalizer.Middleware": { "target": "project" },
-    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4",
-    "Nanophone.RegistryHost.ConsulRegistry": "1.6.2-alpha"
+    "Nanophone.RegistryHost.ConsulRegistry": "1.7.0-alpha",
+    "NLog.Extensions.Logging": "1.0.0-rtm-beta1"
   },
 
   "tools": {
