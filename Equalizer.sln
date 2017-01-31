@@ -1,22 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26127.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE63CD1A-96C7-44F8-9943-EF3F9B257ECD}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
-		global.json = global.json
 		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Core", "src\Equalizer.Core\Equalizer.Core.xproj", "{025C048C-523D-41C9-AC5E-033AF43D23F4}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Routers", "src\Equalizer.Routers\Equalizer.Routers.xproj", "{42558B21-A2E1-40E1-AC77-33210A9C40EA}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Routers.Tests", "test\Equalizer.Routers.Tests\Equalizer.Routers.Tests.xproj", "{5A37463F-F466-401F-B972-6C935DC7BA7F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E1277E3F-8257-4A57-B8B1-CC2142BF4549}"
 EndProject
@@ -31,21 +24,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B0E7F713
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A04EE5E2-0776-4874-97C2-9F2C00BE244D}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.LoadBalancer", "samples\Equalizer.LoadBalancer\Equalizer.LoadBalancer.xproj", "{DB0B3878-85AE-4941-9E5E-46E95EE2E2EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Core", "src\Equalizer.Core\Equalizer.Core.csproj", "{025C048C-523D-41C9-AC5E-033AF43D23F4}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Middleware.Core", "src\Equalizer.Middleware.Core\Equalizer.Middleware.Core.xproj", "{F62983C3-BF11-42C1-B4DB-A5496BD257DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Routers", "src\Equalizer.Routers\Equalizer.Routers.csproj", "{42558B21-A2E1-40E1-AC77-33210A9C40EA}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Middleware", "src\Equalizer.Middleware\Equalizer.Middleware.xproj", "{17C89025-155B-405F-9324-75EEE7E41F54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Routers.Tests", "test\Equalizer.Routers.Tests\Equalizer.Routers.Tests.csproj", "{5A37463F-F466-401F-B972-6C935DC7BA7F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Middleware.Core.Tests", "test\Equalizer.Middleware.Core.Tests\Equalizer.Middleware.Core.Tests.xproj", "{9E3B10C8-2E6A-4AE7-9706-170990DB01D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.LoadBalancer", "samples\Equalizer.LoadBalancer\Equalizer.LoadBalancer.csproj", "{DB0B3878-85AE-4941-9E5E-46E95EE2E2EE}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Middleware.Tests", "test\Equalizer.Middleware.Tests\Equalizer.Middleware.Tests.xproj", "{1750EA75-7F49-481D-835B-DC4B626F4F33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Middleware.Core", "src\Equalizer.Middleware.Core\Equalizer.Middleware.Core.csproj", "{F62983C3-BF11-42C1-B4DB-A5496BD257DF}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Middleware.Owin", "src\Equalizer.Middleware.Owin\Equalizer.Middleware.Owin.xproj", "{EB8B8098-60CC-484E-8988-A923B05CF80C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Middleware", "src\Equalizer.Middleware\Equalizer.Middleware.csproj", "{17C89025-155B-405F-9324-75EEE7E41F54}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.Middleware.Owin.Tests", "test\Equalizer.Middleware.Owin.Tests\Equalizer.Middleware.Owin.Tests.xproj", "{5BE95A99-20F0-4088-93ED-B66EED1C0F25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Middleware.Core.Tests", "test\Equalizer.Middleware.Core.Tests\Equalizer.Middleware.Core.Tests.csproj", "{9E3B10C8-2E6A-4AE7-9706-170990DB01D4}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Equalizer.LoadBalancer.Owin", "samples\Equalizer.LoadBalancer.Owin\Equalizer.LoadBalancer.Owin.xproj", "{ADB9987F-9191-4262-AB32-8404FB5F4E46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Middleware.Tests", "test\Equalizer.Middleware.Tests\Equalizer.Middleware.Tests.csproj", "{1750EA75-7F49-481D-835B-DC4B626F4F33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Middleware.Owin", "src\Equalizer.Middleware.Owin\Equalizer.Middleware.Owin.csproj", "{EB8B8098-60CC-484E-8988-A923B05CF80C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.Middleware.Owin.Tests", "test\Equalizer.Middleware.Owin.Tests\Equalizer.Middleware.Owin.Tests.csproj", "{5BE95A99-20F0-4088-93ED-B66EED1C0F25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equalizer.LoadBalancer.Owin", "samples\Equalizer.LoadBalancer.Owin\Equalizer.LoadBalancer.Owin.csproj", "{ADB9987F-9191-4262-AB32-8404FB5F4E46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

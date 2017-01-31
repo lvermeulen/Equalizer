@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <AssemblyName>Equalizer.LoadBalancer.Owin</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Equalizer.LoadBalancer.Owin</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Equalizer.Middleware.Owin\Equalizer.Middleware.Owin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nanophone.RegistryHost.ConsulRegistry" Version="1.7.0-alpha" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <PackageReference Include="Microsoft.Owin" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Hosting" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="3.0.1" />
+    <PackageReference Include="NLog.Owin.Logging" Version="1.1.0" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
