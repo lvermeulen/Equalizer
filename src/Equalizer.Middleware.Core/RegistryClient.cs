@@ -55,7 +55,7 @@ namespace Equalizer.Middleware.Core
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Uri uri)
         {
-            var instances = await FindServiceInstancesAsync();
+            var instances = await FindServiceInstancesAsync().ConfigureAwait(false);
             return FindServiceInstances(uri, instances);
         }
 
