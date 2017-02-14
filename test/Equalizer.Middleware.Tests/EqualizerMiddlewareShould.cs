@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Equalizer.Middleware.Core;
+using Microsoft.Extensions.Options;
 using Nanophone.Core;
 using Nanophone.RegistryHost.InMemoryRegistry;
 using Xunit;
@@ -121,17 +122,33 @@ namespace Equalizer.Middleware.Tests
         public void RequireValidParameters()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                new TestServer(new WebHostBuilder().Configure(app =>
-                {
-                    ApplicationBuilderExtensions.UseEqualizer(null, null);
-                }))
+                new EqualizerMiddleware(null, null)
             );
 
             Assert.Throws<ArgumentNullException>(() =>
-                new TestServer(new WebHostBuilder().Configure(app =>
-                {
-                    app.UseEqualizer(null);
-                }))
+                new EqualizerMiddleware(ctx => Task.FromResult(0), null)
+            );
+        }
+
+        [Fact]
+        public void HaveRegistryClient()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                new EqualizerMiddleware(null, null)
+            );
+
+            Assert.Throws<ArgumentNullException>(() =>
+                new EqualizerMiddleware(ctx => Task.FromResult(0), null)
+            );
+        }
+
+        [Fact]
+        public void HaveDefaultPathExclusions()
+        {
+            var equalizerOptions = new EqualizerMiddlewareOptions { RegistryClient = null };
+
+            Assert.Throws<ArgumentNullException>(() =>
+                new EqualizerMiddleware(ctx => Task.FromResult(0), Options.Create(equalizerOptions))
             );
         }
     }
