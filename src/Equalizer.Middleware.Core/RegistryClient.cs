@@ -36,14 +36,14 @@ namespace Equalizer.Middleware.Core
 
             foreach (var registryHost in _registryHosts)
             {
-                var instances = await registryHost.FindServiceInstancesAsync();
+                var instances = await registryHost.FindServiceInstancesAsync().ConfigureAwait(false);
                 allInstances.AddRange(instances);
             }
 
             return allInstances;
         }
 
-        public IList<RegistryInformation> FindServiceInstancesAsync(Uri uri, IEnumerable<RegistryInformation> instances)
+        public IList<RegistryInformation> FindServiceInstances(Uri uri, IEnumerable<RegistryInformation> instances)
         {
             var results = instances
                 .Where(x => x.Tags.Any(tag => tag.StartsWith(PrefixName, StringComparison.OrdinalIgnoreCase)
@@ -56,7 +56,7 @@ namespace Equalizer.Middleware.Core
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Uri uri)
         {
             var instances = await FindServiceInstancesAsync();
-            return FindServiceInstancesAsync(uri, instances);
+            return FindServiceInstances(uri, instances);
         }
 
         public RegistryInformation Choose(IList<RegistryInformation> instances)

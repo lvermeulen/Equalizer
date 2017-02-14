@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Equalizer.Routers;
 using Nanophone.Core;
+using NSubstitute;
 using Xunit;
 
 namespace Equalizer.Middleware.Core.Tests
@@ -33,7 +36,7 @@ namespace Equalizer.Middleware.Core.Tests
             var uri = new Uri("http://host:1234/path/path1/path2?key=value");
 
             var registryClient = new RegistryClient("prefix", new RandomRouter<RegistryInformation>());
-            var results = registryClient.FindServiceInstancesAsync(uri, _instances);
+            var results = registryClient.FindServiceInstances(uri, _instances);
 
             Assert.Equal(2, results.Count);
             Assert.Equal("Two", results.First().Name);
@@ -45,8 +48,29 @@ namespace Equalizer.Middleware.Core.Tests
             var uri = new Uri("http://host:1234/some/path/?key=value");
 
             var registryClient = new RegistryClient("prefix", new RandomRouter<RegistryInformation>());
-            var results = registryClient.FindServiceInstancesAsync(uri, _instances);
+            var results = registryClient.FindServiceInstances(uri, _instances);
 
+            Assert.Equal(0, results.Count);
+        }
+
+        [Fact]
+        public async Task AddAndRemoveRegistryHost()
+        {
+            var host = Substitute.For<IRegistryHost>();
+            IList<RegistryInformation> instances = new List<RegistryInformation> { new RegistryInformation() };
+            host.FindServiceInstancesAsync().Returns(Task.FromResult(instances));
+
+            var uri = new Uri("http://host:1234/some/path/?key=value");
+            var registryClient = new RegistryClient("", new RandomRouter<RegistryInformation>());
+            var results = await registryClient.FindServiceInstancesAsync();
+            Assert.Equal(0, results.Count);
+
+            registryClient.AddRegistryHost(host);
+            results = await registryClient.FindServiceInstancesAsync();
+            Assert.Equal(1, results.Count);
+
+            registryClient.RemoveRegistryHost(host);
+            results = await registryClient.FindServiceInstancesAsync();
             Assert.Equal(0, results.Count);
         }
     }

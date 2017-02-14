@@ -7,6 +7,7 @@
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
     "Equalizer.Middleware.Core": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": "1.7.0-alpha",
+    "NSubstitute": "2.0.1-rc",
     "OpenCover": "4.6.519",
     "xunit": "2.2.0-beta3-build3402"
   },
