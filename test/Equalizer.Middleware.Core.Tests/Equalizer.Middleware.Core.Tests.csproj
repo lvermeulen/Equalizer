@@ -12,13 +12,13 @@
     <ProjectReference Include="..\..\src\Equalizer.Middleware.Core\Equalizer.Middleware.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170217-05" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="NSubstitute" Version="2.0.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0-rc4-build1270" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
     <PackageReference Include="coveralls.io" Version="1.3.4" />
     <PackageReference Include="Nanophone.RegistryHost.ConsulRegistry" Version="1.7.0-alpha" />
     <PackageReference Include="OpenCover" Version="4.6.519" />
-    <PackageReference Include="xunit" Version="2.2.0-rc4-build3536" />
+    <PackageReference Include="xunit" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
   </ItemGroup>
