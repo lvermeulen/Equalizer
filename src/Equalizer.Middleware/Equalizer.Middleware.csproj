@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Equalizer middleware for aspnetcore</Description>
+    <Copyright>Copyright 2016</Copyright>
+    <AssemblyTitle>Equalizer.Middleware</AssemblyTitle>
+    <VersionPrefix>1.2.0</VersionPrefix>
+    <Authors>Luk Vermeulen</Authors>
+    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <DefineConstants>$(DefineConstants);LIBLOG_PORTABLE</DefineConstants>
+    <AssemblyName>Equalizer.Middleware</AssemblyName>
+    <PackageId>Equalizer.Middleware</PackageId>
+    <PackageTags>Equalizer;routing;router;load balancing;load balancer;Nanophone;middleware;aspnetcore</PackageTags>
+    <PackageIconUrl>http://i.imgur.com/6XiJ6Yz.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/lvermeulen/Equalizer</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/lvermeulen/Equalizer/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/lvermeulen/Equalizer</RepositoryUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Equalizer.Middleware.Core\Equalizer.Middleware.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System.Linq" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="System.Linq" Version="4.1.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Equalizer is aspnetcore middleware for load-balancing service instances from Nanophone and contains several routers to choose from</Description>
+    <Copyright>Copyright 2016</Copyright>
+    <AssemblyTitle>Equalizer.Core</AssemblyTitle>
+    <VersionPrefix>1.2.0</VersionPrefix>
+    <Authors>Luk Vermeulen</Authors>
+    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <AssemblyName>Equalizer.Core</AssemblyName>
+    <PackageId>Equalizer.Core</PackageId>
+    <PackageTags>Equalizer;routing;router;load balancing;load balancer;Nanophone;middleware;aspnetcore</PackageTags>
+    <PackageIconUrl>http://i.imgur.com/6XiJ6Yz.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/lvermeulen/Equalizer</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/lvermeulen/Equalizer/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/lvermeulen/Equalizer</RepositoryUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nanophone.Core" Version="1.7.0-alpha" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
